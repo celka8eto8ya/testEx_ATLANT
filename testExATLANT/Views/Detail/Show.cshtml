@@ -1,0 +1,80 @@
+﻿@model IEnumerable<Onion.AppCore.DTO.DetailDTO>
+
+<div class="container mainSize col-12">
+
+    <div class="row rowSize col-12">
+
+
+        <div class="row mb-3 pl-0 col-10 justify-content-start">
+
+            <a asp-action="Create" asp-controller="Detail" class="btn btn-primary col-4 mb-2">New Detail</a>
+        </div>
+
+        <div class=" col-12 CreateProj justify-content-center">
+            <table class="table table-striped table-hover col-12 @*table-sm*@ border-dark pt-4 ">
+                <thead>
+                    <tr>
+
+                        <th scope="col">
+                            №
+                        </th>
+                        <th scope="col">
+                            <a class="m-1">Code</a>
+                        </th>
+                        <th scope="col">
+                            <a class="m-1">Name</a>
+                        </th>
+                        <th scope="col">
+                            <a class="m-1">Amount</a>
+                        </th>
+                        <th scope="col">
+                            <a class="m-1">Create Date</a>
+                        </th>
+                        <th scope="col">
+                            <a class="m-1">Delete Date</a>
+                        </th>
+                        <th scope="col">
+                            <a class="m-1">Storekeeper Full Name</a>
+                        </th>
+
+                        <th scope="col">
+                            <a class="m-1">Options</a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ int i = 1;
+
+                        foreach (var detailDTO in Model)
+                        {
+                            <tr>
+
+                                <td scope="row">@i</td>
+                                <td scope="row">@detailDTO.Code</td>
+                                <td scope="row">@detailDTO.Name</td>
+                                <td scope="row">@detailDTO.Amount</td>
+                                <td scope="row">@detailDTO.CreateDate</td>
+                                <td scope="row">@detailDTO.DeleteDate</td>
+                                <td scope="row">@detailDTO.SK_FullName</td>
+
+                                <td class="col-1 px-4">
+
+                                    <a class="icons third" data-title="Remove" asp-controller="Step" asp-route-id="@detailDTO.Id" asp-action="Delete">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                             class="bi bi-trash" viewBox="0 0 20 20">
+                                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                            <path fill-rule="evenodd"
+                                                  d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                        </svg>
+                                    </a>
+
+                                </td>
+                            </tr>
+                            i++;
+                        } }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
