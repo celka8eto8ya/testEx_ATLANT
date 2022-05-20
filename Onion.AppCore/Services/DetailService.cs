@@ -33,7 +33,20 @@ namespace Onion.AppCore.Services
 
 
         public void Delete(int id)
-            => _detailRepository.Delete(id);
+        {
+            var detail = _detailRepository.GetList().First(x => x.Id == id);
+            _detailRepository.Update(new Detail
+            {
+                Id = detail.Id,
+                Code = detail.Code,
+                Name = detail.Name,
+                Amount = detail.Amount,
+                CreateDate = detail.CreateDate,
+                DeleteDate = System.DateTime.Now,
+
+                StorekeeperId = detail.StorekeeperId
+            });
+        }
 
 
         public IEnumerable<DetailDTO> GetList()
@@ -46,7 +59,6 @@ namespace Onion.AppCore.Services
                 CreateDate = x.CreateDate,
                 DeleteDate = x.DeleteDate,
                 SK_FullName = _storekeeperRepository.GetById(x.StorekeeperId).FullName,
-                //SK_FullName = "123",
 
                 StorekeeperId = x.StorekeeperId
             });

@@ -1,10 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Onion.AppCore.DTO;
 using Onion.AppCore.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Onion.WebApp.Controllers
 {
@@ -14,23 +10,18 @@ namespace Onion.WebApp.Controllers
 
 
         public StorekeeperController(IStorekeeper storekeeperService)
-        {
-            _storekeeperService = storekeeperService;
-        }
+            => _storekeeperService = storekeeperService;
 
 
         [HttpGet]
         public IActionResult Show()
-        {
-            return View(_storekeeperService.GetList());
-        }
+            => View(_storekeeperService.GetList());
 
 
         [HttpGet]
         public IActionResult Create()
-        {
-            return View();
-        }
+            => View();
+
 
         [HttpPost]
         public IActionResult Create(StorekeeperDTO storekeeperDTO)
@@ -52,6 +43,13 @@ namespace Onion.WebApp.Controllers
                 ModelState.AddModelError("", "Storekeeper already exists!");
             }
             return View();
+        }
+
+
+        public IActionResult Delete(int id)
+        {
+            _storekeeperService.Delete(id);
+            return RedirectToAction("Show", "Storekeeper");
         }
     }
 }

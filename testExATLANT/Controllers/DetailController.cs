@@ -53,5 +53,11 @@ namespace Onion.WebApp.Controllers
             }
             return View();
         }
+
+        public IActionResult Delete(int id)
+        {
+            _detailService.Delete(id);
+            return RedirectToAction("Show", "Detail");
+        }
     }
 }

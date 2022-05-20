@@ -1,10 +1,8 @@
 ﻿using Onion.AppCore.DTO;
 using Onion.AppCore.Entities;
 using Onion.AppCore.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Onion.AppCore.Services
 {
@@ -29,31 +27,31 @@ namespace Onion.AppCore.Services
             });
 
 
-        public void Delete(int id)
+        private int GetDetailsAmount(int id)
         {
-            throw new NotImplementedException();
+            int detailsAmount = 0;
+            _detailRepository.GetList().Where(x => x.DeleteDate.Year < 3 && x.StorekeeperId == id).ToList().
+                ForEach(y => detailsAmount += y.Amount);
+            return detailsAmount;
         }
 
-        public StorekeeperDTO GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
+
+        public void Delete(int id)
+            => _storekeeperRepository.Delete(id);
+
 
         public IEnumerable<StorekeeperDTO> GetList()
             => _storekeeperRepository.GetList().Select(x => new StorekeeperDTO
             {
                 Id = x.Id,
                 FullName = x.FullName,
-                DetailAmount = _detailRepository.GetList().Where(y => y.StorekeeperId == x.Id && y.DeleteDate.Year > 2).
-                    ToList().Count
+                DetailAmount = GetDetailsAmount(x.Id)
             });
+
 
         public bool IsUnique(StorekeeperDTO storekeeperDTO)
             => _storekeeperRepository.GetList().Any(x => x.FullName == storekeeperDTO.FullName);
 
-        public void Update(StorekeeperDTO storekeeperDTO)
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }
